@@ -19,6 +19,9 @@ namespace NewsApi
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
 
+            //builder.Services.AddScoped<NewsArticleRepo>(); // Add scoped vs addTransient vs addSingleton
+            // //builder.Services.addCustomServices - ja napravio ovu extendovanu metodu
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

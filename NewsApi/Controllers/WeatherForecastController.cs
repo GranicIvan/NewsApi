@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using NewsApi.Data.Base;
 using NewsApi.Data.Repositories;
+using NewsApi.Model.Models;
 
 namespace NewsApi.Controllers
 {
@@ -12,11 +14,16 @@ namespace NewsApi.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+
+        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly DataContext _dataContext;
+
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, DataContext dataContext)
         {
             _logger = logger;
+            _dataContext = dataContext;
+
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -45,20 +52,14 @@ namespace NewsApi.Controllers
         }
 
         [HttpGet("GetNewsArticlesTest")]
-        public WeatherForecast? GetNewsArticlesTest()
+        public List<NewsArticle>? GetNewsArticlesTest()
         {
 
 
-            NewsArticleRepo nar = new NewsArticleRepo();
+            NewsArticleRepo nar = new NewsArticleRepo(_dataContext);
 
 
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .FirstOrDefault();
+            return nar.GetAll().ToList();
         }
 
     }
