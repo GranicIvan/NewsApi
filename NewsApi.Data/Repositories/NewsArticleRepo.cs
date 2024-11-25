@@ -9,10 +9,17 @@ using System.Threading.Tasks;
 
 namespace NewsApi.Data.Repositories
 {
-    internal class NewsArticleRepo : BaseRepository<NewsArticle>
+    public class NewsArticleRepo : BaseRepository<NewsArticle>
     {
         public NewsArticleRepo(DbContext context) : base(context)
         {
+
+            //public NewsArticle GetById<NewsArticle>()
+            //{
+
+
+            //}
+
         }
     }
 }

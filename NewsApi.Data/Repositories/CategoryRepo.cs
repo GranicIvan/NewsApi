@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsApi.Data.Base;
+using NewsApi.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace NewsApi.Data.Repositories
 {
-    internal class Category : BaseRepository<Category>
+    public class CategoryRepo : BaseRepository<Category>
     {
-        public Category(DbContext context) : base(context)
+        public CategoryRepo(DbContext context) : base(context)
         {
         }
     }

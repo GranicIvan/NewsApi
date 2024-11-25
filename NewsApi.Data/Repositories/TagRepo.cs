@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NewsApi.Data.Repositories
 {
-    internal class TagRepo : BaseRepository<Tag>
+    public class TagRepo : BaseRepository<Tag>
     {
         public TagRepo(DbContext context) : base(context)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NewsApi.Data.Base
 {
-    internal abstract class BaseRepository<T> where T : class
+    public abstract class BaseRepository<T> where T : class
     {
 
         private readonly DbContext _context;
@@ -19,28 +19,28 @@ namespace NewsApi.Data.Base
             _dbSet = _context.Set<T>();
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             return _dbSet.Find(id);
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return _dbSet.ToList();
         }
 
-        public void Add(T entity)
+        public virtual  void Add(T entity)
         {
             _dbSet.Add(entity);
         }
 
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             _dbSet.Remove(entity);
         }

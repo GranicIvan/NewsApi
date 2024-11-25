@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using NewsApi.Data.Repositories;
 
 namespace NewsApi.Controllers
 {
@@ -42,5 +43,23 @@ namespace NewsApi.Controllers
             })
             .FirstOrDefault();
         }
+
+        [HttpGet("GetNewsArticlesTest")]
+        public WeatherForecast? GetNewsArticlesTest()
+        {
+
+
+            NewsArticleRepo nar = new NewsArticleRepo();
+
+
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            })
+            .FirstOrDefault();
+        }
+
     }
 }
