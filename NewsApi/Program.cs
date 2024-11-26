@@ -1,6 +1,10 @@
 
 using Microsoft.EntityFrameworkCore;
+using NewsApi.Configurations.Extenders;
 using NewsApi.Data.Base;
+using NewsApi.Data.UnitOfWork;
+using NewsApi.Services;
+using NewsApi.Services.Implementations;
 
 namespace NewsApi
 {
@@ -21,6 +25,11 @@ namespace NewsApi
 
             //builder.Services.AddScoped<NewsArticleRepo>(); // Add scoped vs addTransient vs addSingleton
             // //builder.Services.addCustomServices - ja napravio ovu extendovanu metodu
+
+
+            //builder.Services.AddScoped<UnitOfWork>();
+            builder.Services.AddCustomServices(); // OVDE PUKNE
+            //builder.Services.AddSingleton<ICategoryService, CategoryService>();// i ovde pukne
 
             var app = builder.Build();
 

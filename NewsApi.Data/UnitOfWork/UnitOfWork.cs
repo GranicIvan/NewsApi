@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NewsApi.Data.UnitOfWork
 {
-    internal class UnitOfWork : IDisposable
+    public class UnitOfWork : IDisposable
     {
         private DataContext context;
         private BaseRepository<NewsArticle> newsArticleRepository;

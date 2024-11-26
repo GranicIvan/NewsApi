@@ -29,6 +29,12 @@ namespace NewsApi.Data.Base
             return _dbSet.ToList();
         }
 
+        public async virtual Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
+            
+        }
+
         public virtual  void Add(T entity)
         {
             _dbSet.Add(entity);
@@ -45,5 +51,6 @@ namespace NewsApi.Data.Base
             _dbSet.Remove(entity);
         }
 
+        
     }
 }

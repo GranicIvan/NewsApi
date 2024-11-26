@@ -21,8 +21,4 @@
     <ProjectReference Include="..\NewsApi.Data\NewsApi.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

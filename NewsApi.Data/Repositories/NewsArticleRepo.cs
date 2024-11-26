@@ -14,12 +14,14 @@ namespace NewsApi.Data.Repositories
         public NewsArticleRepo(DbContext context) : base(context)
         {
 
-            //public NewsArticle GetById<NewsArticle>()
-            //{
 
-
-            //}
 
         }
+
+        //public NewsArticle GetById<NewsArticle>(int id)
+        //{
+
+        //    return this.GetById(id);
+        //}
     }
 }

@@ -1,6 +1,18 @@
 @NewsApi_HostAddress = http://localhost:5092
 
+
 GET {{NewsApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+# Tags Endpoints
+GET {{NewsApi_HostAddress}}/tag/
+Accept: application/json
+
+###
+
+# Tags Endpoints
+GET {{NewsApi_HostAddress}}/category/
+Accept: application/json
+
