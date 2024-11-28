@@ -34,6 +34,12 @@ namespace NewsApi.Controllers
             return _categoryService.GetById(id);
         }
 
+        [HttpPost("AddCategory")]
+        public  Category? AddCategoryAsync(Category category)
+        {
+            return  _categoryService.AddAsync(category).Result;
+        }
+
 
     }
 }

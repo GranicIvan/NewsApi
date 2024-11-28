@@ -17,10 +17,10 @@ namespace NewsApi.Model.Models
         public string Author { get; set; }
         public DateTime PublishedAt { get; set; }
         
-        public List<Tag> Tags { get; set; }
-        
-        public Category Category { get; set; }//Key
-        public string ImageUrl { get; set; }
+
+        public List<Tag>? Tags { get; set; }        
+        public Category? Category { get; set; }
+        public string? ImageUrl { get; set; }
 
     }
 }

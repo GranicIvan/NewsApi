@@ -12,6 +12,27 @@ namespace NewsApi.Services.Implementations
             this._unitOfWork = unitOfWork;
         }
 
+        public async Task<Tag?> AddAsync(Tag tag)
+        {
+            try
+            {
+                await _unitOfWork.TagRepository.AddAsync(tag);
+                _unitOfWork.Save();
+            }
+            catch (OperationCanceledException ex)
+            {
+                Console.WriteLine($"Adding Tag faild. {ex.Message}");
+                tag = null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Adding Tag faild. {ex.Message}");
+                tag = null;
+            }
+
+            return tag;
+        }
+
         public Task<IEnumerable<Tag>> GetAllAsync()
         {
             return _unitOfWork.TagRepository.GetAllAsync();

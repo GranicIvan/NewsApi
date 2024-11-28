@@ -27,13 +27,17 @@ namespace NewsApi.Controllers
         }
 
         [HttpGet("GetNewsArticleById")]
-        public Task<NewsArticle> GetNewsArticleByIdAsync(int id)
+        public async Task<NewsArticle> GetNewsArticleByIdAsync(int id)
         {
            
-            return _newsArticleService.GetNewsArticleById(id);
+            return await _newsArticleService.GetNewsArticleById(id);
         }
 
-
+        [HttpPost("AddNewsArticle")]
+        public async Task<NewsArticle?> AddNewsArticleAsync(NewsArticle newsArticle)
+        {
+            return await _newsArticleService.AddAsync(newsArticle);
+        }
 
     }
 }

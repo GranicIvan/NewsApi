@@ -7,5 +7,7 @@ namespace NewsApi.Services
         Task<IEnumerable<NewsArticle>> getAllNewsArticlesAsync();
 
         Task<NewsArticle> GetNewsArticleById(int id);
+
+        Task<NewsArticle?> AddAsync(NewsArticle newsArticle);
     }
 }

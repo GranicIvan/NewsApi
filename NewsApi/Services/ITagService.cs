@@ -6,5 +6,7 @@ namespace NewsApi.Services
     {
         public Task<IEnumerable<Tag>> GetAllAsync();
         Task<Tag> GetById(int id);
+
+        Task<Tag?> AddAsync(Tag tag);
     }
 }

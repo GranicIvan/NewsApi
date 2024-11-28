@@ -11,7 +11,7 @@ namespace NewsApi.Services
 
         public Task<IEnumerable<Category>> GetAllAsync();
 
-
+        public Task<Category?> AddAsync(Category category);
 
 
     }

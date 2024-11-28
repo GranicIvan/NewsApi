@@ -37,5 +37,11 @@ namespace NewsApi.Controllers
         {
             return await _tagService.GetById(id);
         }
+
+        [HttpPost("AddTag")]
+        public async Task<Tag> AddTagAsync(Tag tag)
+        {
+            return await _tagService.AddAsync(tag);
+        }
     }
 }

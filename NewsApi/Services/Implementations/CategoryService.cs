@@ -13,6 +13,30 @@ namespace NewsApi.Services.Implementations
             this._unitOfWork = unitOfWork;
         }
 
+        public async Task<Category?> AddAsync(Category category)
+        {
+            try
+            {
+             
+
+                await _unitOfWork.CategoryRepository.AddAsync(category);
+                _unitOfWork.Save();
+
+            }
+            catch (OperationCanceledException ex)
+            {
+                Console.WriteLine($"Adding Category faild. {ex.Message}");
+                category = null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Adding Category faild. {ex.Message}");
+                category = null;
+            }
+            
+            return category;
+        }
+
         public Task<IEnumerable<Category>> GetAllAsync()
         {
             return _unitOfWork.CategoryRepository.GetAllAsync();
