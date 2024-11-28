@@ -1,6 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
-using NewsApi.Configurations.Extenders;
+using NewsApi.Configurations.Extensions;
 using NewsApi.Data.Base;
 using NewsApi.Data.UnitOfWork;
 using NewsApi.Services;
@@ -23,13 +23,9 @@ namespace NewsApi
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
 
-            //builder.Services.AddScoped<NewsArticleRepo>(); // Add scoped vs addTransient vs addSingleton
-            // //builder.Services.addCustomServices - ja napravio ovu extendovanu metodu
-
-
-            //builder.Services.AddScoped<UnitOfWork>();
-            builder.Services.AddCustomServices(); // OVDE PUKNE
-            //builder.Services.AddSingleton<ICategoryService, CategoryService>();// i ovde pukne
+            
+            builder.Services.AddCustomServices(); 
+            
 
             var app = builder.Build();
 

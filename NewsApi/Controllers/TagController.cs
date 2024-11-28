@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NewsApi.Data.Base;
 using NewsApi.Data.Repositories;
+using NewsApi.Data.UnitOfWork;
 using NewsApi.Model.Models;
+using NewsApi.Services;
+using NewsApi.Services.Implementations;
 
 namespace NewsApi.Controllers
 {
@@ -11,27 +14,28 @@ namespace NewsApi.Controllers
     [Route("[controller]")]
     public class TagController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
-        private readonly DataContext _dataContext;
+        private readonly ILogger<TagController> _logger;
+        private readonly ITagService _tagService;
 
 
-        public TagController(ILogger<WeatherForecastController> logger, DataContext dataContext)
+        public TagController(ILogger<TagController> logger, ITagService tagService)
         {
             _logger = logger;
-            _dataContext = dataContext;
+            _tagService = tagService;
 
         }
 
 
         [HttpGet("GetAllTags")]
-        public List<Tag>? GetNewsArticlesTest()
+        public async Task<IEnumerable<Tag>> GetTagsAsync()
+        {            
+            return await _tagService.GetAllAsync();
+        }
+
+        [HttpGet("GetTagById")]
+        public async Task<Tag> GetTagByIdAsync(int id)
         {
-
-
-            TagRepo tr = new TagRepo(_dataContext);
-
-
-            return tr.GetAll().ToList();
+            return await _tagService.GetById(id);
         }
     }
 }

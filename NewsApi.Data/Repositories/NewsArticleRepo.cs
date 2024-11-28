@@ -15,13 +15,21 @@ namespace NewsApi.Data.Repositories
         {
 
 
-
         }
 
-        //public NewsArticle GetById<NewsArticle>(int id)
-        //{
+        public override async Task<IEnumerable<NewsArticle>> GetAllAsync()
+        {
+            return await _dbSet.Include(x => x.Category).Include(x => x.Tags).ToListAsync();
+        }
 
-        //    return this.GetById(id);
+        //public async Task<NewsArticle> GetByIdAsync(int id)
+        //{
+        //    throw await this.GetByIdAsync(id);
+        //}
+
+        //public async Task<NewsArticle> GetNewsArticleByIdAsync(int id)
+        //{
+        //    return await this.GetByIdAsync(id);
         //}
     }
 }

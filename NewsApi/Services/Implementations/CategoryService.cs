@@ -6,21 +6,24 @@ namespace NewsApi.Services.Implementations
     public class CategoryService : ICategoryService
     {
 
-        private UnitOfWork unitOfWork;
+        private UnitOfWork _unitOfWork;
 
         public CategoryService(UnitOfWork unitOfWork)
         {
-            this.unitOfWork = unitOfWork;
+            this._unitOfWork = unitOfWork;
         }
 
-        public List<Category> GetAllCategories()
+        public Task<IEnumerable<Category>> GetAllAsync()
         {
-            return unitOfWork.CategoryRepository.GetAll().ToList();
+            return _unitOfWork.CategoryRepository.GetAllAsync();
         }
 
-        public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
+        public Task<Category> GetById(int id)
         {
-            return await unitOfWork.CategoryRepository.GetAllAsync();
+            return _unitOfWork.CategoryRepository.GetByIdAsync(id);
         }
+
+  
+
     }
 }

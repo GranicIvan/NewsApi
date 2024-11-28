@@ -11,7 +11,7 @@ namespace NewsApi.Data.Base
     {
 
         private readonly DbContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected readonly DbSet<T> _dbSet;
 
         public BaseRepository(DbContext context)
         {
@@ -22,6 +22,11 @@ namespace NewsApi.Data.Base
         public virtual T GetById(int id)
         {
             return _dbSet.Find(id);
+        }
+
+        public virtual async Task<T> GetByIdAsync(int id)
+        {
+            return await _dbSet.FindAsync(id);
         }
 
         public virtual IEnumerable<T> GetAll()

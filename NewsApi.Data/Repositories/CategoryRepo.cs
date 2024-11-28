@@ -22,17 +22,17 @@ namespace NewsApi.Data.Repositories
 
         }
 
-        public List<Category> GetAllCategories()
-        {
-            return this.GetAll().ToList();
-        }
-
-        public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
-        {
-            return await this.GetAllAsync();
-        }
+        //public List<Category> GetAllCategories()
+        //{
+        //    return this.GetAll().ToList();
+        //}
 
 
+
+        //public async Task<Category> GetCategoryByIdAsync(int id)
+        //{
+        //    return await dc.Categories.FindAsync(id);
+        //}
 
     }
 }

@@ -2,6 +2,7 @@
 using NewsApi.Data.Base;
 using NewsApi.Data.Repositories;
 using NewsApi.Model.Models;
+using NewsApi.Services;
 
 namespace NewsApi.Controllers
 {
@@ -10,35 +11,28 @@ namespace NewsApi.Controllers
     public class CategoryController : ControllerBase
     {
 
-        private readonly ILogger<WeatherForecastController> _logger;
-        private readonly DataContext _dataContext;
+        private readonly ILogger<CategoryController> _logger;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(ILogger<WeatherForecastController> logger, DataContext dataContext)
+        public CategoryController(ILogger<CategoryController> logger, ICategoryService categoryService)
         {
             _logger = logger;
-            _dataContext = dataContext;
+            _categoryService = categoryService;
         }
+
 
         [HttpGet("GetAllCategories")]
-        public List<Category>? GetCategories()
-        {
-            CategoryRepo cr = new CategoryRepo(_dataContext);
-
-            return cr.GetAllCategories();
+        public async Task<IEnumerable<Category>> GetCategoriesAsync()
+        {            
+            return await _categoryService.GetAllAsync();
         }
 
-        [HttpGet("GetAllCategoriesAsync")]
-        public Task<IEnumerable<Category>> GetCategoriesAsync()
+        [HttpGet("GetCategoryById")]
+        public Task<Category> GetCategoryByIdAsync(int id)
         {
-            CategoryRepo cr = new CategoryRepo(_dataContext);
 
-            return cr.GetAllCategoriesAsync();
+            return _categoryService.GetById(id);
         }
-
-
-
-
-
 
 
     }

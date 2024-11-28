@@ -5,13 +5,14 @@ namespace NewsApi.Services
     public interface ICategoryService
     {
 
-        public List<Category> GetAllCategories();
-
-        public Task<IEnumerable<Category>> GetAllCategoriesAsync();
-
-
-        //public Task AddCategoryAsync(Category category);
-
         
+
+        public Task<Category> GetById(int id);
+
+        public Task<IEnumerable<Category>> GetAllAsync();
+
+
+
+
     }
 }

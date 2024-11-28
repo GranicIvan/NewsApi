@@ -12,9 +12,9 @@ namespace NewsApi.Data.UnitOfWork
     public class UnitOfWork : IDisposable
     {
         private DataContext context;
-        private BaseRepository<NewsArticle> newsArticleRepository;
-        private BaseRepository<Category> categoryReposotpry;
-        private BaseRepository<Tag> tagReposotpry;
+        private NewsArticleRepo newsArticleRepository;
+        private CategoryRepo categoryReposotpry;
+        private TagRepo tagReposotpry;
        
 
         public UnitOfWork(DataContext context)
@@ -22,7 +22,7 @@ namespace NewsApi.Data.UnitOfWork
             this.context = context;
         }
 
-        public BaseRepository<NewsArticle> NewsArticleRepository
+        public NewsArticleRepo NewsArticleRepository
         {
             get
             {
@@ -35,7 +35,7 @@ namespace NewsApi.Data.UnitOfWork
             }
         }
 
-        public BaseRepository<Category> CategoryRepository
+        public CategoryRepo CategoryRepository
         {
             get
             {
@@ -48,7 +48,7 @@ namespace NewsApi.Data.UnitOfWork
             }
         }
 
-        public BaseRepository<Tag> TagRepository
+        public TagRepo TagRepository
         {
             get
             {

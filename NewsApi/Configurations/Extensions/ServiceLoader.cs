@@ -2,7 +2,7 @@
 using NewsApi.Services;
 using NewsApi.Data.UnitOfWork;
 
-namespace NewsApi.Configurations.Extenders
+namespace NewsApi.Configurations.Extensions
 {
     public static class ServiceLoader
     {
@@ -11,8 +11,8 @@ namespace NewsApi.Configurations.Extenders
         {   
             services.AddScoped<UnitOfWork>();
             services.AddScoped<ICategoryService, CategoryService>(); //singlton vs scoped vs transient
-           
-
+            services.AddScoped<INewsArticleService, NewsArticleService>();
+            services.AddScoped<ITagService, TagService>();
 
         }
 
