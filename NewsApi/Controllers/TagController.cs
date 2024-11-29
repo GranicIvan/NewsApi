@@ -4,6 +4,7 @@ using NewsApi.Data.Repositories;
 using NewsApi.Data.UnitOfWork;
 using NewsApi.Model.Models;
 using NewsApi.Services;
+using NewsApi.Model.DTO;
 using NewsApi.Services.Implementations;
 
 namespace NewsApi.Controllers
@@ -39,7 +40,7 @@ namespace NewsApi.Controllers
         }
 
         [HttpPost("AddTag")]
-        public async Task<Tag> AddTagAsync(Tag tag)
+        public async Task<Tag> AddTagAsync(TagDTO tag)
         {
             return await _tagService.AddAsync(tag);
         }

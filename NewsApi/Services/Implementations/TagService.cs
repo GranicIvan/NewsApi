@@ -1,4 +1,6 @@
-﻿using NewsApi.Data.UnitOfWork;
+﻿using AutoMapper;
+using NewsApi.Data.UnitOfWork;
+using NewsApi.Model.DTO;
 using NewsApi.Model.Models;
 
 namespace NewsApi.Services.Implementations
@@ -6,16 +8,20 @@ namespace NewsApi.Services.Implementations
     public class TagService : ITagService
     {
         private UnitOfWork _unitOfWork;
+        private IMapper _mapper;
 
-        public TagService(UnitOfWork unitOfWork)
+        public TagService(UnitOfWork unitOfWork, IMapper mapper)
         {
-            this._unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<Tag?> AddAsync(Tag tag)
+        public async Task<Tag?> AddAsync(TagDTO tagDTO)
         {
+            Tag? tag = null;
             try
             {
+                tag = _mapper.Map<Tag>(tagDTO); 
                 await _unitOfWork.TagRepository.AddAsync(tag);
                 _unitOfWork.Save();
             }

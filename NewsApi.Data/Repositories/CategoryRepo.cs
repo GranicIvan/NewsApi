@@ -18,21 +18,11 @@ namespace NewsApi.Data.Repositories
 
         public CategoryRepo(DbContext context) : base(context)
         {
-            dc = (DataContext)context; // Potrebna je konverzija
+            dc = (DataContext)context;
 
         }
 
-        //public List<Category> GetAllCategories()
-        //{
-        //    return this.GetAll().ToList();
-        //}
 
-
-
-        //public async Task<Category> GetCategoryByIdAsync(int id)
-        //{
-        //    return await dc.Categories.FindAsync(id);
-        //}
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NewsApi.Data.Base;
 using NewsApi.Data.Repositories;
+using NewsApi.Model.DTO;
 using NewsApi.Model.Models;
 using NewsApi.Services;
 
@@ -35,7 +36,7 @@ namespace NewsApi.Controllers
         }
 
         [HttpPost("AddCategory")]
-        public  Category? AddCategoryAsync(Category category)
+        public  Category? AddCategoryAsync(CategoryDTO category)
         {
             return  _categoryService.AddAsync(category).Result;
         }

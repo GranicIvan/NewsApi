@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NewsApi.Data.Base;
 using NewsApi.Data.Repositories;
+using NewsApi.Model.DTO;
 using NewsApi.Model.Models;
 using NewsApi.Services;
 
@@ -34,7 +35,7 @@ namespace NewsApi.Controllers
         }
 
         [HttpPost("AddNewsArticle")]
-        public async Task<NewsArticle?> AddNewsArticleAsync(NewsArticle newsArticle)
+        public async Task<NewsArticleDTO?> AddNewsArticleAsync(NewsArticleDTO newsArticle)
         {
             return await _newsArticleService.AddAsync(newsArticle);
         }

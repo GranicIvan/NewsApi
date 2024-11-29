@@ -1,4 +1,6 @@
-﻿using NewsApi.Data.UnitOfWork;
+﻿using AutoMapper;
+using NewsApi.Data.UnitOfWork;
+using NewsApi.Model.DTO;
 using NewsApi.Model.Models;
 
 namespace NewsApi.Services.Implementations
@@ -7,19 +9,31 @@ namespace NewsApi.Services.Implementations
     {
 
         private UnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public NewsArticleService(UnitOfWork unitOfWork)
+
+        public NewsArticleService(UnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<NewsArticle> AddAsync(NewsArticle newsArticle)
+        public async Task<NewsArticleDTO> AddAsync(NewsArticleDTO newsArticleDTO)
         {
+            NewsArticle? newsArticle = null;
             try
             {
                 //newsArticle.Category = _unitOfWork.CategoryRepository.GetById( newsArticle.Category.Id );
                 //Sta raditi ako kategorija ne postoji
 
+                newsArticle = _mapper.Map<NewsArticle>(newsArticleDTO);
+
+                newsArticle.Category = await _unitOfWork.CategoryRepository.GetByIdAsync( newsArticleDTO.Category.Id );
+
+                if (newsArticleDTO.Tags?.Any() ?? false)
+                {
+                    newsArticle.Tags = await _unitOfWork.TagRepository.GetAllTagsByID(newsArticleDTO.Tags.Select(t => t.Id));
+                }
 
                 await _unitOfWork.NewsArticleRepository.AddAsync(newsArticle);
                 _unitOfWork.Save();
@@ -35,7 +49,7 @@ namespace NewsApi.Services.Implementations
                 newsArticle = null;
             }
 
-            return newsArticle;
+            return _mapper.Map<NewsArticleDTO>( newsArticle);
 
         }
 

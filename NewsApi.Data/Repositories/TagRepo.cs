@@ -13,6 +13,15 @@ namespace NewsApi.Data.Repositories
     {
         public TagRepo(DbContext context) : base(context)
         {
+
         }
-    }
+
+
+        public async Task<List<Tag>> GetAllTagsByID(IEnumerable<int> ids) 
+        {
+        
+            return await _dbSet.Where( t => ids.Contains(t.Id)).ToListAsync();
+
+        }
+     }
 }

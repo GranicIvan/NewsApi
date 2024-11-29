@@ -1,4 +1,5 @@
-﻿using NewsApi.Model.Models;
+﻿using NewsApi.Model.DTO;
+using NewsApi.Model.Models;
 
 namespace NewsApi.Services
 {
@@ -7,6 +8,6 @@ namespace NewsApi.Services
         public Task<IEnumerable<Tag>> GetAllAsync();
         Task<Tag> GetById(int id);
 
-        Task<Tag?> AddAsync(Tag tag);
+        Task<Tag?> AddAsync(TagDTO tag);
     }
 }

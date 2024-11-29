@@ -1,5 +1,7 @@
 ﻿using NewsApi.Model.Models;
 using NewsApi.Data.UnitOfWork;
+using NewsApi.Model.DTO;
+using AutoMapper;
 
 namespace NewsApi.Services.Implementations
 {
@@ -7,17 +9,23 @@ namespace NewsApi.Services.Implementations
     {
 
         private UnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CategoryService(UnitOfWork unitOfWork)
+        public CategoryService(UnitOfWork unitOfWork, IMapper mapper)
         {
-            this._unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<Category?> AddAsync(Category category)
+        public async Task<Category?> AddAsync(CategoryDTO categoryDTO)
         {
+            Category? category = null;
             try
             {
-             
+
+                 category =  _mapper.Map<Category>(categoryDTO);                
+
+            
 
                 await _unitOfWork.CategoryRepository.AddAsync(category);
                 _unitOfWork.Save();

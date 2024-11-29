@@ -1,4 +1,5 @@
-﻿using NewsApi.Model.Models;
+﻿using NewsApi.Model.DTO;
+using NewsApi.Model.Models;
 
 namespace NewsApi.Services
 {
@@ -8,6 +9,6 @@ namespace NewsApi.Services
 
         Task<NewsArticle> GetNewsArticleById(int id);
 
-        Task<NewsArticle?> AddAsync(NewsArticle newsArticle);
+        Task<NewsArticleDTO?> AddAsync(NewsArticleDTO newsArticle);
     }
 }

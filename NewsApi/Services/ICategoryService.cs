@@ -1,4 +1,5 @@
-﻿using NewsApi.Model.Models;
+﻿using NewsApi.Model.DTO;
+using NewsApi.Model.Models;
 
 namespace NewsApi.Services
 {
@@ -11,7 +12,7 @@ namespace NewsApi.Services
 
         public Task<IEnumerable<Category>> GetAllAsync();
 
-        public Task<Category?> AddAsync(Category category);
+        public Task<Category?> AddAsync(CategoryDTO category);
 
 
     }
