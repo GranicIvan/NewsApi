@@ -1,4 +1,5 @@
-﻿using NewsApi.Model.Models;
+﻿using NewsApi.Model.Enums;
+using NewsApi.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace NewsApi.Model.DTO
         public string Text { get; set; }
         public string Author { get; set; }
         public DateTime PublishedAt { get; set; }
+
+        public Status? Status { get; set; }
 
 
         public List<TagDTO>? Tags { get; set; }

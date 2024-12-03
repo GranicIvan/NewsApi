@@ -58,6 +58,8 @@ namespace NewsApi.Data.Base
             _context.Entry(entity).State = EntityState.Modified;
         }
 
+
+
         public virtual void Delete(T entity)
         {
             _dbSet.Remove(entity);

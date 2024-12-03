@@ -16,7 +16,6 @@ namespace NewsApi.Data.Repositories
 
         }
 
-
         public async Task<List<Tag>> GetAllTagsByID(IEnumerable<int> ids) 
         {
         

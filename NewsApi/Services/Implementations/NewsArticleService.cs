@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using NewsApi.Data.UnitOfWork;
 using NewsApi.Model.DTO;
+using NewsApi.Model.Enums;
 using NewsApi.Model.Models;
 
 namespace NewsApi.Services.Implementations
@@ -23,12 +24,15 @@ namespace NewsApi.Services.Implementations
             NewsArticle? newsArticle = null;
             try
             {
-                //newsArticle.Category = _unitOfWork.CategoryRepository.GetById( newsArticle.Category.Id );
-                //Sta raditi ako kategorija ne postoji
 
                 newsArticle = _mapper.Map<NewsArticle>(newsArticleDTO);
 
-                newsArticle.Category = await _unitOfWork.CategoryRepository.GetByIdAsync( newsArticleDTO.Category.Id );
+                if (newsArticleDTO.Category != null) 
+                {
+                    newsArticle.Category = await _unitOfWork.CategoryRepository.GetByIdAsync(newsArticleDTO.Category.Id);
+                }
+
+                   
 
                 if (newsArticleDTO.Tags?.Any() ?? false)
                 {
@@ -36,7 +40,7 @@ namespace NewsApi.Services.Implementations
                 }
 
                 await _unitOfWork.NewsArticleRepository.AddAsync(newsArticle);
-                _unitOfWork.Save();
+                await _unitOfWork.SaveAsync();
             }
             catch (OperationCanceledException ex)
             {
@@ -61,6 +65,45 @@ namespace NewsApi.Services.Implementations
         public Task<NewsArticle> GetNewsArticleById(int id)
         {
             return _unitOfWork.NewsArticleRepository.GetByIdAsync(id);
+        }
+
+        public Task<NewsArticle> GetNewsArticleByName(string name)
+        {
+            return _unitOfWork.NewsArticleRepository.GetByNameAsync(name);
+        }
+
+        public Task<int> DeleteNewsArticle(int id)
+        {
+            return _unitOfWork.NewsArticleRepository.DeleteAsync(id);
+        }
+
+        public async Task<int> UpdateNewsArticle(NewsArticleDTO newsArticleDTO)
+        {
+            NewsArticle newsArticle = _mapper.Map<NewsArticle>(newsArticleDTO);
+
+
+            if (newsArticle.Category != null)
+            {
+                newsArticle.Category =  await _unitOfWork.CategoryRepository.GetByIdAsync(newsArticle.Category.Id) ;
+            }
+
+            if (newsArticleDTO.Tags?.Any() ?? false)
+            {
+                newsArticle.Tags = await _unitOfWork.TagRepository.GetAllTagsByID(newsArticleDTO.Tags.Select(t => t.Id));
+            }
+
+            _unitOfWork.NewsArticleRepository.Update(_mapper.Map<NewsArticle>(newsArticle));
+            return await _unitOfWork.SaveAsync(); 
+        }
+
+        public Task<IEnumerable<NewsArticle>> getActiveNewsArticlesAsync()
+        {
+            return _unitOfWork.NewsArticleRepository.GetActiveNewsArticlesAsync();
+        }
+
+        public Task<IEnumerable<NewsArticle>> GetNewsArticleByStatus(Status status)
+        {
+            return _unitOfWork.NewsArticleRepository.GetNewsArticleByStatus(status);
         }
     }
 }

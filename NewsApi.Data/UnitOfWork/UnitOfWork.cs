@@ -67,6 +67,11 @@ namespace NewsApi.Data.UnitOfWork
             context.SaveChanges();
         }
 
+        public async Task<int> SaveAsync()
+        {
+            return await context.SaveChangesAsync();
+        }
+
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)
