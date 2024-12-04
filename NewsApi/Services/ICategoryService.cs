@@ -13,5 +13,8 @@ namespace NewsApi.Services
         public Task<Category?> AddAsync(CategoryDTO category);
 
 
+        public Task<int> UpdateAsync(CategoryDTO category);
+
+
     }
 }

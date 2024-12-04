@@ -23,15 +23,15 @@ namespace NewsApi.Controllers
 
 
         [HttpGet("GetAllNewsArticles")]
-        public Task<IEnumerable<NewsArticleDTO>> GetNewsArticlesAsync()
+        public async Task<IEnumerable<NewsArticleDTO>> GetNewsArticlesAsync()
         {
-            return _newsArticleService.GetAllNewsArticlesAsync();
+            return await _newsArticleService.GetAllNewsArticlesAsync();
         }
 
         [HttpGet("GetActiveNewsArticles")]
-        public Task<IEnumerable<NewsArticle>> GetActiveNewsArticlesAsync()
+        public async Task<IEnumerable<NewsArticle>> GetActiveNewsArticlesAsync()
         {
-            return _newsArticleService.getActiveNewsArticlesAsync();
+            return await _newsArticleService.GetActiveNewsArticlesAsync();
         }
 
         [HttpGet("GetNewsArticleById")]
@@ -48,24 +48,12 @@ namespace NewsApi.Controllers
         }
 
 
-        [HttpPost("AddNewsArticleOptimal")]
-        public async Task<NewsArticleDTO?> AddNewsArticleAsyncOptimal(NewsArticleDTO newsArticle)
-        {
-            return await _newsArticleService.AddAsyncOptimal(newsArticle);
-        }
-
-
         [HttpGet("GetNewsArticleByName")]
         public async Task<NewsArticle> GetNewsArticleByNameAsync(string name)
         {
             return await _newsArticleService.GetNewsArticleByName(name);
         }
 
-        [HttpDelete("DeleteNewsArticle")]
-        public async Task<int> DeleteNewsArticleAsync(int id)
-        {
-            return await _newsArticleService.DeleteNewsArticle(id);
-        }
 
         [HttpPut("UpdateNewsArticle")]
         public async Task<int> UpdateNewsArticleAsync(NewsArticleDTO newsArticle)
@@ -87,11 +75,6 @@ namespace NewsApi.Controllers
             return await _newsArticleService.GetCategoryFromNewsArticle(id);
         }
 
-        //[HttpGet("GetCategoryFromNewsArticle")]
-        //public async Task<Category> GetCategoryFromNewsArticleAsync2(Status status = Status.Active , bool ascending = true)
-        //{
-        //    return await _newsArticleService.GetCategoryFromNewsArticle(id);
-        //}
 
         [HttpGet("GetNewsArticleByCategory")]
         public async Task<IEnumerable<NewsArticle>> GetNewsArticleByCategoryAsync(int categoryId)

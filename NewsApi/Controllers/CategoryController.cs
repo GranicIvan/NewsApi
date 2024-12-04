@@ -41,6 +41,12 @@ namespace NewsApi.Controllers
             return  _categoryService.AddAsync(category).Result;
         }
 
+        [HttpPut("UpdateCategory")]
+        public async Task<int> UpdateCategoryAsync(CategoryDTO category)
+        {
+            return await _categoryService.UpdateAsync(category);
+        }
+
 
     }
 }

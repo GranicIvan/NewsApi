@@ -10,19 +10,14 @@ namespace NewsApi.Services
 
         Task<NewsArticle> GetNewsArticleById(int id);
 
-        Task<NewsArticleDTO?> AddAsync(NewsArticleDTO newsArticle);
-
-
-        Task<NewsArticleDTO?> AddAsyncOptimal(NewsArticleDTO newsArticle);
-        
+        Task<NewsArticleDTO?> AddAsync(NewsArticleDTO newsArticle);        
 
         Task<NewsArticle> GetNewsArticleByName(string name);
 
-        Task<int> DeleteNewsArticle(int id);
 
         Task<int> UpdateNewsArticle(NewsArticleDTO newsArticle);
 
-        Task<IEnumerable<NewsArticle>> getActiveNewsArticlesAsync();
+        Task<IEnumerable<NewsArticle>> GetActiveNewsArticlesAsync();
 
         Task<IEnumerable<NewsArticle>> GetNewsArticleByStatus(Status status);
 
@@ -32,7 +27,6 @@ namespace NewsApi.Services
 
 
         Task<IEnumerable<NewsArticle>> GetNewsArticleByTag(int tagId);
-
 
         Task<IEnumerable<NewsArticle>> GetNewsArticleSortByDate();
     }

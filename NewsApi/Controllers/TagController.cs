@@ -44,5 +44,11 @@ namespace NewsApi.Controllers
         {
             return await _tagService.AddAsync(tag);
         }
+
+        [HttpPut("UpdateTag")]
+        public async Task<int> UpdateTagAsync(TagDTO tag)
+        {
+            return await _tagService.UpdateAsync(tag);
+        }
     }
 }

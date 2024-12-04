@@ -48,5 +48,11 @@ namespace NewsApi.Services.Implementations
         {
             return _unitOfWork.TagRepository.GetByIdAsync(id);
         }
+
+        public async Task<int> UpdateAsync(TagDTO tag)
+        {
+            _unitOfWork.TagRepository.Update(_mapper.Map<Tag>(tag));
+            return await _unitOfWork.SaveAsync();
+        }
     }
 }

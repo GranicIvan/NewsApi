@@ -28,100 +28,12 @@ namespace NewsApi.Services.Implementations
 
                 newsArticle = _mapper.Map<NewsArticle>(newsArticleDTO);
 
-                if (newsArticleDTO.Category != null) 
-                {
-                    newsArticle.Category = await _unitOfWork.CategoryRepository.GetByIdAsync(newsArticleDTO.Category.Id);
-                }
-
-                   
-
-                if (newsArticleDTO.Tags?.Any() ?? false)
-                {
-                    newsArticle.Tags = await _unitOfWork.TagRepository.GetAllTagsByID(newsArticleDTO.Tags.Select(t => t.Id));
-                }
-
-                await _unitOfWork.NewsArticleRepository.AddAsync(newsArticle);
-                await _unitOfWork.SaveAsync();
-            }
-            catch (OperationCanceledException ex)
-            {
-                Console.WriteLine($"Adding NewsArticle faild. {ex.Message}");
-                newsArticle = null;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Adding NewsArticle faild. {ex.Message}");
-                newsArticle = null;
-            }
-
-            return _mapper.Map<NewsArticleDTO>( newsArticle);
-
-        }
-
-        public async Task<IEnumerable<NewsArticleDTO>> GetAllNewsArticlesAsync()
-        {
-             var news = await _unitOfWork.NewsArticleRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<NewsArticleDTO>>(news);
-        }
-
-        public Task<NewsArticle> GetNewsArticleById(int id)
-        {
-            return _unitOfWork.NewsArticleRepository.GetByIdAsync(id);
-        }
-
-        public Task<NewsArticle> GetNewsArticleByName(string name)
-        {
-            return _unitOfWork.NewsArticleRepository.GetByNameAsync(name);
-        }
-
-        public Task<int> DeleteNewsArticle(int id)
-        {
-            return _unitOfWork.NewsArticleRepository.DeleteAsync(id);
-        }
-
-        public async Task<int> UpdateNewsArticle(NewsArticleDTO newsArticleDTO)
-        {
-            NewsArticle newsArticle = _mapper.Map<NewsArticle>(newsArticleDTO);
 
 
-            if (newsArticle.Category != null)
-            {
-                newsArticle.Category =  await _unitOfWork.CategoryRepository.GetByIdAsync(newsArticle.Category.Id) ;
-            }
-
-            if (newsArticleDTO.Tags?.Any() ?? false)
-            {
-                newsArticle.Tags = await _unitOfWork.TagRepository.GetAllTagsByID(newsArticleDTO.Tags.Select(t => t.Id));
-            }
-
-            _unitOfWork.NewsArticleRepository.Update(_mapper.Map<NewsArticle>(newsArticle));
-            return await _unitOfWork.SaveAsync(); 
-        }
-
-        public Task<IEnumerable<NewsArticle>> getActiveNewsArticlesAsync()
-        {
-            return _unitOfWork.NewsArticleRepository.GetActiveNewsArticlesAsync();
-        }
-
-        public Task<IEnumerable<NewsArticle>> GetNewsArticleByStatus(Status status)
-        {
-            return _unitOfWork.NewsArticleRepository.GetNewsArticleByStatus(status);
-        }
-
-        public async Task<NewsArticleDTO?> AddAsyncOptimal(NewsArticleDTO newsArticleDTO)
-        {
-            NewsArticle? newsArticle = null;
-            try
-            {
-
-                newsArticle = _mapper.Map<NewsArticle>(newsArticleDTO);
-
-
-                
                 //Mapper vidi kako da defisinsem kad koji da koristi
                 newsArticle.Category = null; // Ensure the Category object is not tracked
                 newsArticle.Tags = null;
-                
+
 
                 if (newsArticleDTO.Tags?.Any() ?? false)
                 {
@@ -144,7 +56,56 @@ namespace NewsApi.Services.Implementations
             }
 
             return _mapper.Map<NewsArticleDTO>(newsArticle);
+
         }
+
+        public async Task<IEnumerable<NewsArticleDTO>> GetAllNewsArticlesAsync()
+        {
+             var news = await _unitOfWork.NewsArticleRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<NewsArticleDTO>>(news);
+        }
+
+        public Task<NewsArticle> GetNewsArticleById(int id)
+        {
+            return _unitOfWork.NewsArticleRepository.GetByIdAsync(id);
+        }
+
+        public Task<NewsArticle> GetNewsArticleByName(string name)
+        {
+            return _unitOfWork.NewsArticleRepository.GetByNameAsync(name);
+        }
+
+
+        public async Task<int> UpdateNewsArticle(NewsArticleDTO newsArticleDTO)
+        {
+            NewsArticle newsArticle = _mapper.Map<NewsArticle>(newsArticleDTO);
+
+
+            if (newsArticle.Category != null)
+            {
+                newsArticle.Category =  await _unitOfWork.CategoryRepository.GetByIdAsync(newsArticle.Category.Id) ;
+            }
+
+            if (newsArticleDTO.Tags?.Any() ?? false)
+            {
+                newsArticle.Tags = await _unitOfWork.TagRepository.GetAllTagsByID(newsArticleDTO.Tags.Select(t => t.Id));
+            }
+
+            _unitOfWork.NewsArticleRepository.Update(_mapper.Map<NewsArticle>(newsArticle));
+            return await _unitOfWork.SaveAsync(); 
+        }
+
+        public Task<IEnumerable<NewsArticle>> GetActiveNewsArticlesAsync()
+        {
+            return _unitOfWork.NewsArticleRepository.GetActiveNewsArticlesAsync();
+        }
+
+        public Task<IEnumerable<NewsArticle>> GetNewsArticleByStatus(Status status)
+        {
+            return _unitOfWork.NewsArticleRepository.GetNewsArticleByStatus(status);
+        }
+
+        
 
         public async Task<Category> GetCategoryFromNewsArticle(int id)
         {

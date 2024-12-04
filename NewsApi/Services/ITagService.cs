@@ -9,5 +9,7 @@ namespace NewsApi.Services
         Task<Tag> GetById(int id);
 
         Task<Tag?> AddAsync(TagDTO tag);
+
+        Task<int> UpdateAsync(TagDTO tag);
     }
 }

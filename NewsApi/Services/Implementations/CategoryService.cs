@@ -45,17 +45,20 @@ namespace NewsApi.Services.Implementations
             return category;
         }
 
-        public Task<IEnumerable<Category>> GetAllAsync()
+        public async Task<IEnumerable<Category>> GetAllAsync()
         {
-            return _unitOfWork.CategoryRepository.GetAllAsync();
+            return await _unitOfWork.CategoryRepository.GetAllAsync();
         }
 
-        public Task<Category> GetById(int id)
+        public async Task<Category> GetById(int id)
         {
-            return _unitOfWork.CategoryRepository.GetByIdAsync(id);
+            return await _unitOfWork.CategoryRepository.GetByIdAsync(id);
         }
 
-  
-
+        public async Task<int> UpdateAsync(CategoryDTO category)
+        {
+            _unitOfWork.CategoryRepository.Update(_mapper.Map<Category>(category));
+            return await _unitOfWork.SaveAsync();
+        }
     }
 }
