@@ -23,9 +23,9 @@ namespace NewsApi.Controllers
 
 
         [HttpGet("GetAllNewsArticles")]
-        public Task<IEnumerable<NewsArticle>> GetNewsArticlesAsync()
+        public Task<IEnumerable<NewsArticleDTO>> GetNewsArticlesAsync()
         {
-            return _newsArticleService.getAllNewsArticlesAsync();
+            return _newsArticleService.GetAllNewsArticlesAsync();
         }
 
         [HttpGet("GetActiveNewsArticles")]
@@ -48,6 +48,13 @@ namespace NewsApi.Controllers
         }
 
 
+        [HttpPost("AddNewsArticleOptimal")]
+        public async Task<NewsArticleDTO?> AddNewsArticleAsyncOptimal(NewsArticleDTO newsArticle)
+        {
+            return await _newsArticleService.AddAsyncOptimal(newsArticle);
+        }
+
+
         [HttpGet("GetNewsArticleByName")]
         public async Task<NewsArticle> GetNewsArticleByNameAsync(string name)
         {
@@ -66,12 +73,43 @@ namespace NewsApi.Controllers
             return await _newsArticleService.UpdateNewsArticle(newsArticle);
         }
 
-        //[HttpGet("GetNewsArticleByCategory")]
+        
 
         [HttpGet("GetNewsArticleByStatus")]
         public async Task<IEnumerable<NewsArticle>> GetNewsArticleByStatusAsync(Status status)
         {
             return await _newsArticleService.GetNewsArticleByStatus(status);
-        }   
+        }
+
+        [HttpGet("GetCategoryFromNewsArticle")]
+        public async Task<Category> GetCategoryFromNewsArticleAsync(int id)
+        {
+            return await _newsArticleService.GetCategoryFromNewsArticle(id);
+        }
+
+        //[HttpGet("GetCategoryFromNewsArticle")]
+        //public async Task<Category> GetCategoryFromNewsArticleAsync2(Status status = Status.Active , bool ascending = true)
+        //{
+        //    return await _newsArticleService.GetCategoryFromNewsArticle(id);
+        //}
+
+        [HttpGet("GetNewsArticleByCategory")]
+        public async Task<IEnumerable<NewsArticle>> GetNewsArticleByCategoryAsync(int categoryId)
+        {
+            return await _newsArticleService.GetNewsArticleByCategory(categoryId);
+        }
+
+        [HttpGet("GetNewsArticleByTag")]
+        public async Task<IEnumerable<NewsArticle>> GetNewsArticleByTagAsync(int tagId)
+        {
+            return await _newsArticleService.GetNewsArticleByTag(tagId);
+        }
+
+        [HttpGet("GetNewsArticleSortByDate")]
+        public async Task<IEnumerable<NewsArticle>> GetNewsArticleSortByDateAsync()
+        {
+            return await _newsArticleService.GetNewsArticleSortByDate();
+        }
+
     }
 }

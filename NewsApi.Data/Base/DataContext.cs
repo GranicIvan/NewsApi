@@ -13,11 +13,11 @@ namespace NewsApi.Data.Base
         public DbSet<Category> Categories { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder mb ) 
+        //protected override void OnModelCreating(ModelBuilder mb)
         //{
 
-        //    //mb.Entity<NewsArticle>().HasMany(x =>x.Tags).WithMany(x => x.Articles);
-            
+        //    mb.Entity<NewsArticle>().HasMany(x =>x.Tags).WithMany(x => x.Articles);
+
         //}
 
     }

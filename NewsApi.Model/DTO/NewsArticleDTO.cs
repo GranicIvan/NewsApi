@@ -21,7 +21,9 @@ namespace NewsApi.Model.DTO
 
 
         public List<TagDTO>? Tags { get; set; }
+        public List<int>? TagsId { get; set; }
         public CategoryDTO? Category { get; set; }
+        public int? CategoryId { get; set; }
         public string? ImageUrl { get; set; }
     }
 }

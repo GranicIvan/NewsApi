@@ -23,7 +23,7 @@ namespace NewsApi.Services.Implementations
             {
                 tag = _mapper.Map<Tag>(tagDTO); 
                 await _unitOfWork.TagRepository.AddAsync(tag);
-                _unitOfWork.Save();
+                await _unitOfWork.SaveAsync();
             }
             catch (OperationCanceledException ex)
             {

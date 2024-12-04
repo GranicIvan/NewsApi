@@ -43,7 +43,8 @@ namespace NewsApi.Configurations.Mapper
             }
             ) );
             CreateMap<NewsArticleDTO, NewsArticle>();
-
+            //CreateMap<NewsArticleDTO, NewsArticle>(string name); // Ovde da navedes da li id ili ceo objekatda bude null od povezanih
+ 
         }
 
 

@@ -28,7 +28,7 @@ namespace NewsApi.Services.Implementations
             
 
                 await _unitOfWork.CategoryRepository.AddAsync(category);
-                _unitOfWork.Save();
+                await _unitOfWork.SaveAsync();
 
             }
             catch (OperationCanceledException ex)
