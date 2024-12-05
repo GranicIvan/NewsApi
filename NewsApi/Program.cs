@@ -25,10 +25,11 @@ namespace NewsApi
             builder.Services.AddDatabase(builder.Configuration);
 
             builder.Services.AddCustomAutoMapper();
-            builder.Services.AddCustomServices(); 
-            
+            builder.Services.AddCustomServices();
+            builder.Services.AddCustomJsonOptions();
 
-            
+
+
 
             var app = builder.Build();
 

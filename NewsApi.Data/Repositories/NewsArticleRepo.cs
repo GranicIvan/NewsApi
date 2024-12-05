@@ -80,6 +80,19 @@ namespace NewsApi.Data.Repositories
             return await _dbSet.OrderByDescending(na => na.PublishedAt).ToListAsync();
         }
 
+        public async Task<IEnumerable<NewsArticle>> GetNewsArticleByStatusAndSort(Status status, bool sortDescending)
+        {            
+            if (sortDescending)
+            {
+                return await  _dbSet.Where(na => na.Status == status).OrderByDescending(na => na.PublishedAt).ToListAsync();
+            }
+            else
+            {
+                return await _dbSet.Where(na => na.Status == status).OrderBy(na => na.PublishedAt).ToListAsync();
+            }
+            
+        }
+
         //public async Task<NewsArticle> GetByIdAsync(int id)
         //{
         //    throw await this.GetByIdAsync(id);

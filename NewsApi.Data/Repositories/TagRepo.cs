@@ -22,5 +22,11 @@ namespace NewsApi.Data.Repositories
             return await _dbSet.Where( t => ids.Contains(t.Id)).ToListAsync();
 
         }
-     }
+
+        public async override Task<IEnumerable<Tag>> GetAllAsync()
+        {
+            return await _dbSet.Include(x => x.Articles).ToListAsync();
+        }
+
+    }
 }

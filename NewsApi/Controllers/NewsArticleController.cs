@@ -94,5 +94,12 @@ namespace NewsApi.Controllers
             return await _newsArticleService.GetNewsArticleSortByDate();
         }
 
+        [HttpGet("GetNewsArticleByStatusAndSort")]
+        public async Task<IEnumerable<NewsArticle>> GetNewsArticleByStatusAndSortAsync(Status status = Status.Active, bool sortDescending = true)
+        {
+            return await _newsArticleService.GetNewsArticleByStatusAndSort(status, sortDescending);
+        }
+
+
     }
 }

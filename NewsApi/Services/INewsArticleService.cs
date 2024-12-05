@@ -29,5 +29,7 @@ namespace NewsApi.Services
         Task<IEnumerable<NewsArticle>> GetNewsArticleByTag(int tagId);
 
         Task<IEnumerable<NewsArticle>> GetNewsArticleSortByDate();
+
+        Task<IEnumerable<NewsArticle>> GetNewsArticleByStatusAndSort(Status status, bool sortDescending);
     }
 }

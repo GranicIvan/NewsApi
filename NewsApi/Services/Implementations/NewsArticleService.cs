@@ -126,5 +126,10 @@ namespace NewsApi.Services.Implementations
         {
             return _unitOfWork.NewsArticleRepository.GetNewsArticleSortByDate();
         }
+
+        public Task<IEnumerable<NewsArticle>> GetNewsArticleByStatusAndSort(Status status, bool sortDescending)
+        {
+            return _unitOfWork.NewsArticleRepository.GetNewsArticleByStatusAndSort(status, sortDescending);
+        }
     }
 }
