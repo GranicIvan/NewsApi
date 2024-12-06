@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NewsApi.Data.Base;
 using NewsApi.Data.Repositories;
 using NewsApi.Model.DTO;
@@ -8,9 +9,10 @@ using NewsApi.Services;
 
 namespace NewsApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class NewsArticleController
+    public class NewsArticleController : ControllerBase
     {
         private readonly ILogger<NewsArticleController> _logger;
         private readonly INewsArticleService _newsArticleService;

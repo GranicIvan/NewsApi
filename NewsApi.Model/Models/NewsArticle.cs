@@ -22,7 +22,6 @@ namespace NewsApi.Model.Models
         //public DateTime LastModifiedAt { get; set; }
 
         public List<Tag>? Tags { get; set; }   
-        public List<int>? TagsId { get; set; }
         public Category? Category { get; set; }
         public int? CategoryId { get; set; }
         public string? ImageUrl { get; set; }

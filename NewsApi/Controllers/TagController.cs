@@ -6,11 +6,12 @@ using NewsApi.Model.Models;
 using NewsApi.Services;
 using NewsApi.Model.DTO;
 using NewsApi.Services.Implementations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NewsApi.Controllers
 {
 
-
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class TagController : ControllerBase

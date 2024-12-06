@@ -30,9 +30,9 @@ namespace NewsApi.Services.Implementations
 
 
 
-                //Mapper vidi kako da defisinsem kad koji da koristi
+               
                 newsArticle.Category = null; // Ensure the Category object is not tracked
-                newsArticle.Tags = null;
+                
 
 
                 if (newsArticleDTO.Tags?.Any() ?? false)
