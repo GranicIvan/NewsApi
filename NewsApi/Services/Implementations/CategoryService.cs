@@ -2,6 +2,9 @@
 using NewsApi.Data.UnitOfWork;
 using NewsApi.Model.DTO;
 using AutoMapper;
+using NewsApi.Controllers;
+using Serilog;
+
 
 namespace NewsApi.Services.Implementations
 {
@@ -10,11 +13,13 @@ namespace NewsApi.Services.Implementations
 
         private UnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly Serilog.ILogger _logger;
 
-        public CategoryService(UnitOfWork unitOfWork, IMapper mapper)
+        public CategoryService(UnitOfWork unitOfWork, IMapper mapper, Serilog.ILogger logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<Category?> AddAsync(CategoryDTO categoryDTO)
@@ -22,22 +27,21 @@ namespace NewsApi.Services.Implementations
             Category? category = null;
             try
             {
-
-                 category =  _mapper.Map<Category>(categoryDTO);                
-
-            
+                 category =  _mapper.Map<Category>(categoryDTO);                            
 
                 await _unitOfWork.CategoryRepository.AddAsync(category);
                 await _unitOfWork.SaveAsync();
 
             }
             catch (OperationCanceledException ex)
-            {
+            {               
+                _logger.Error(ex, "An error occurred while adding Category.");
                 Console.WriteLine($"Adding Category faild. {ex.Message}");
                 category = null;
             }
             catch (Exception ex)
             {
+                _logger.Error(ex, "An error occurred while adding Category.");
                 Console.WriteLine($"Adding Category faild. {ex.Message}");
                 category = null;
             }

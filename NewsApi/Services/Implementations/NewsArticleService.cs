@@ -11,13 +11,15 @@ namespace NewsApi.Services.Implementations
     {
 
         private UnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        private readonly IMapper _mapper; 
+        private readonly Serilog.ILogger _logger;
 
 
-        public NewsArticleService(UnitOfWork unitOfWork, IMapper mapper)
+        public NewsArticleService(UnitOfWork unitOfWork, IMapper mapper, Serilog.ILogger logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<NewsArticleDTO> AddAsync(NewsArticleDTO newsArticleDTO)

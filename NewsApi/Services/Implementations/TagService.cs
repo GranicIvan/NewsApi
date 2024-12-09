@@ -9,11 +9,13 @@ namespace NewsApi.Services.Implementations
     {
         private UnitOfWork _unitOfWork;
         private IMapper _mapper;
+        private readonly Serilog.ILogger _logger;
 
-        public TagService(UnitOfWork unitOfWork, IMapper mapper)
+        public TagService(UnitOfWork unitOfWork, IMapper mapper, Serilog.ILogger logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<Tag?> AddAsync(TagDTO tagDTO)

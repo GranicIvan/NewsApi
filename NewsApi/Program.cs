@@ -12,6 +12,7 @@ using NewsApi.Data.Base;
 using NewsApi.Data.UnitOfWork;
 using NewsApi.Services;
 using NewsApi.Services.Implementations;
+using Serilog;
 using System.Text;
 
 namespace NewsApi
@@ -24,6 +25,9 @@ namespace NewsApi
             builder.Configuration.AddJsonFile("appsettings.json");
 
             // Add services to the container.
+
+            // Register Serilog.ILogger
+            builder.AddLogger();
 
             builder.Services.AddControllers();
             builder.Services.AddProblemDetails().AddErrorObjects();
@@ -87,9 +91,6 @@ namespace NewsApi
                 };
             });
 
-
-
-
             var app = builder.Build();
             app.UseMiddleware<ApiVersionErrorMiddleware>();
 
@@ -97,7 +98,6 @@ namespace NewsApi
             if (app.Environment.IsDevelopment())
             {
                 var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-
 
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
@@ -114,7 +114,6 @@ namespace NewsApi
 
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
