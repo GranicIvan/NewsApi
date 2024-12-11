@@ -40,13 +40,7 @@ namespace NewsApi.Services.Implementations
                 await _unitOfWork.NewsArticleRepository.AddAsync(newsArticle);
                 await _unitOfWork.SaveAsync();
 
-            }
-            catch (OperationCanceledException ex)
-            {
-                _logger.Error(ex, "An error occurred while adding NewsArticle.");
-                Console.WriteLine($"Adding NewsArticle failed. {ex.Message}");
-                newsArticle = null;
-            }
+            }            
             catch (Exception ex)
             {
                 _logger.Error(ex, "An error occurred while adding NewsArticle.");

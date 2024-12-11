@@ -1,4 +1,5 @@
-﻿using NewsApi.Data.Base;
+﻿using Microsoft.Extensions.Caching.Memory;
+using NewsApi.Data.Base;
 using NewsApi.Data.Repositories;
 using NewsApi.Model.Models;
 using System;
@@ -11,27 +12,27 @@ namespace NewsApi.Data.UnitOfWork
 {
     public class UnitOfWork : IDisposable
     {
-        private DataContext context;
-        private NewsArticleRepo newsArticleRepository;
-        private CategoryRepo categoryReposotpry;
-        private TagRepo tagReposotpry;
-       
+        private readonly DataContext _context;
+
+        private NewsArticleRepo _newsArticleRepository;
+        private CategoryRepo _categoryRepository;
+        private TagRepo _tagRepository;
 
         public UnitOfWork(DataContext context)
         {
-            this.context = context;
+            _context = context;
+            
         }
 
         public NewsArticleRepo NewsArticleRepository
         {
             get
             {
-
-                if (this.newsArticleRepository == null)
+                if (_newsArticleRepository == null)
                 {
-                    this.newsArticleRepository = new NewsArticleRepo(context);
+                    _newsArticleRepository = new NewsArticleRepo(_context);
                 }
-                return newsArticleRepository;
+                return _newsArticleRepository;
             }
         }
 
@@ -39,12 +40,11 @@ namespace NewsApi.Data.UnitOfWork
         {
             get
             {
-
-                if (this.categoryReposotpry == null)
+                if (_categoryRepository == null)
                 {
-                    this.categoryReposotpry = new CategoryRepo(context);
+                    _categoryRepository = new CategoryRepo(_context);
                 }
-                return categoryReposotpry;
+                return _categoryRepository;
             }
         }
 
@@ -52,39 +52,38 @@ namespace NewsApi.Data.UnitOfWork
         {
             get
             {
-
-                if (this.tagReposotpry == null)
+                if (_tagRepository == null)
                 {
-                    this.tagReposotpry = new TagRepo(context);
+                    _tagRepository = new TagRepo(_context);
                 }
-                return tagReposotpry;
+                return _tagRepository;
             }
         }
 
-
         public void Save()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public async Task<int> SaveAsync()
         {
-            return await context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
-        private bool disposed = false;
+        private bool _disposed = false;
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
-            this.disposed = true;
+            _disposed = true;
         }
+
         public void Dispose()
         {
             Dispose(true);

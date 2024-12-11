@@ -1,17 +1,10 @@
 using Asp.Versioning.ApiExplorer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NewsApi.Configurations;
 using NewsApi.Configurations.Extensions;
 using NewsApi.Configurations.Middlewares;
-using NewsApi.Data.Base;
-using NewsApi.Data.UnitOfWork;
-using NewsApi.Services;
-using NewsApi.Services.Implementations;
-using Serilog;
 using System.Text;
 
 namespace NewsApi
@@ -66,6 +59,7 @@ namespace NewsApi
             builder.Services.AddCustomAutoMapper();
             builder.Services.AddCustomServices();
             builder.Services.AddCustomJsonOptions();
+         
 
             // Adding Authentication
             builder.Services.AddAuthentication(options =>
@@ -90,8 +84,7 @@ namespace NewsApi
                 };
             });
 
-            var app = builder.Build();
-            app.UseMiddleware<ApiVersionErrorMiddleware>();
+            var app = builder.Build();         
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -108,8 +101,12 @@ namespace NewsApi
                     }
                 });
             }
+            else
+            {
+                app.UseMiddleware<ExceptionHandlingMiddleware>();
+            }
 
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            //app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseHttpsRedirection();
 
