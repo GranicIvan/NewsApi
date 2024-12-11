@@ -29,12 +29,14 @@ namespace NewsApi.Services.Implementations
             }
             catch (OperationCanceledException ex)
             {
-                Console.WriteLine($"Adding Tag faild. {ex.Message}");
+                _logger.Error(ex, "An error occurred while adding Tag.");
+                Console.WriteLine($"Adding Tag failed. {ex.Message}");
                 tag = null;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Adding Tag faild. {ex.Message}");
+                _logger.Error(ex, "An error occurred while adding Tag.");
+                Console.WriteLine($"Adding Tag failed. {ex.Message}");
                 tag = null;
             }
 

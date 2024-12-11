@@ -36,13 +36,13 @@ namespace NewsApi.Services.Implementations
             catch (OperationCanceledException ex)
             {               
                 _logger.Error(ex, "An error occurred while adding Category.");
-                Console.WriteLine($"Adding Category faild. {ex.Message}");
+                Console.WriteLine($"Adding Category failed. {ex.Message}");
                 category = null;
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "An error occurred while adding Category.");
-                Console.WriteLine($"Adding Category faild. {ex.Message}");
+                Console.WriteLine($"Adding Category failed. {ex.Message}");
                 category = null;
             }
             

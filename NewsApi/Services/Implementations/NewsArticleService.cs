@@ -11,7 +11,7 @@ namespace NewsApi.Services.Implementations
     {
 
         private UnitOfWork _unitOfWork;
-        private readonly IMapper _mapper; 
+        private readonly IMapper _mapper;
         private readonly Serilog.ILogger _logger;
 
 
@@ -30,12 +30,7 @@ namespace NewsApi.Services.Implementations
 
                 newsArticle = _mapper.Map<NewsArticle>(newsArticleDTO);
 
-
-
-               
                 newsArticle.Category = null; // Ensure the Category object is not tracked
-                
-
 
                 if (newsArticleDTO.Tags?.Any() ?? false)
                 {
@@ -48,12 +43,14 @@ namespace NewsApi.Services.Implementations
             }
             catch (OperationCanceledException ex)
             {
-                Console.WriteLine($"Adding NewsArticle faild. {ex.Message}");
+                _logger.Error(ex, "An error occurred while adding NewsArticle.");
+                Console.WriteLine($"Adding NewsArticle failed. {ex.Message}");
                 newsArticle = null;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Adding NewsArticle faild. {ex.Message}");
+                _logger.Error(ex, "An error occurred while adding NewsArticle.");
+                Console.WriteLine($"Adding NewsArticle failed. {ex.Message}");
                 newsArticle = null;
             }
 
@@ -63,7 +60,7 @@ namespace NewsApi.Services.Implementations
 
         public async Task<IEnumerable<NewsArticleDTO>> GetAllNewsArticlesAsync()
         {
-             var news = await _unitOfWork.NewsArticleRepository.GetAllAsync();
+            var news = await _unitOfWork.NewsArticleRepository.GetAllAsync();
             return _mapper.Map<IEnumerable<NewsArticleDTO>>(news);
         }
 
@@ -85,7 +82,7 @@ namespace NewsApi.Services.Implementations
 
             if (newsArticle.Category != null)
             {
-                newsArticle.Category =  await _unitOfWork.CategoryRepository.GetByIdAsync(newsArticle.Category.Id) ;
+                newsArticle.Category = await _unitOfWork.CategoryRepository.GetByIdAsync(newsArticle.Category.Id);
             }
 
             if (newsArticleDTO.Tags?.Any() ?? false)
@@ -94,7 +91,7 @@ namespace NewsApi.Services.Implementations
             }
 
             _unitOfWork.NewsArticleRepository.Update(_mapper.Map<NewsArticle>(newsArticle));
-            return await _unitOfWork.SaveAsync(); 
+            return await _unitOfWork.SaveAsync();
         }
 
         public Task<IEnumerable<NewsArticle>> GetActiveNewsArticlesAsync()
@@ -107,11 +104,11 @@ namespace NewsApi.Services.Implementations
             return _unitOfWork.NewsArticleRepository.GetNewsArticleByStatus(status);
         }
 
-        
+
 
         public async Task<Category> GetCategoryFromNewsArticle(int id)
         {
-           return await _unitOfWork.NewsArticleRepository.GetCategoryFromNewsArticle(id);
+            return await _unitOfWork.NewsArticleRepository.GetCategoryFromNewsArticle(id);
         }
 
         public async Task<IEnumerable<NewsArticle>> GetNewsArticleByCategory(int categoryId)
