@@ -59,7 +59,9 @@ namespace NewsApi
             builder.Services.AddCustomAutoMapper();
             builder.Services.AddCustomServices();
             builder.Services.AddCustomJsonOptions();
-         
+            builder.Services.AddCumstomCors();
+
+
 
             // Adding Authentication
             builder.Services.AddAuthentication(options =>
@@ -114,6 +116,7 @@ namespace NewsApi
             app.UseAuthorization();
 
             app.MapControllers();
+            app.UseCors("AllowSpecificOrigin");
 
             app.Run();
         }
