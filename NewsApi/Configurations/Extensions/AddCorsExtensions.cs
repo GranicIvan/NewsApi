@@ -9,7 +9,7 @@
             {
                 options.AddPolicy("AllowSpecificOrigin",
                     builder => builder
-                        .WithOrigins("http://localhost:4200")
+                        .WithOrigins("*")
                         .AllowAnyHeader()
                         .AllowAnyMethod());
             });

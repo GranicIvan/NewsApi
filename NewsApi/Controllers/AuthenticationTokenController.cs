@@ -21,7 +21,7 @@ namespace NewsApi.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost("GetToken")]
+        [HttpGet("GetToken")]
         public IActionResult GetTokenAsync()
         {
 
