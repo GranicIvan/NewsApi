@@ -11,7 +11,7 @@ namespace NewsApi.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class NewsArticleController : ControllerBase
     {
         private readonly ILogger<NewsArticleController> _logger;
