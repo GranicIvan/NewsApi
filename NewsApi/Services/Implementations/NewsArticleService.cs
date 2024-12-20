@@ -32,6 +32,11 @@ namespace NewsApi.Services.Implementations
 
                 newsArticle.Category = null; // Ensure the Category object is not tracked
 
+                if(newsArticle.CategoryId == -1)
+                {
+                    newsArticle.CategoryId = null;
+                }
+
                 if (newsArticleDTO.Tags?.Any() ?? false)
                 {
                     newsArticle.Tags = await _unitOfWork.TagRepository.GetAllTagsByID(newsArticleDTO.Tags.Select(t => t.Id));
