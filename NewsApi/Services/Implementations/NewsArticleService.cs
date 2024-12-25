@@ -78,6 +78,11 @@ namespace NewsApi.Services.Implementations
         {
             NewsArticle newsArticle = _mapper.Map<NewsArticle>(newsArticleDTO);
 
+            if (newsArticle.CategoryId == -1)
+            {
+                newsArticle.CategoryId = null;
+            }
+
 
             if (newsArticle.Category != null)
             {
