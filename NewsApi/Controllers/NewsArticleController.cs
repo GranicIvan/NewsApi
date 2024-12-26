@@ -102,6 +102,13 @@ namespace NewsApi.Controllers
             return await _newsArticleService.GetNewsArticleByStatusAndSort(status, sortDescending);
         }
 
+        [HttpGet("GetNAPagesByStatusAndSort")]
+        public async Task<IEnumerable<NewsArticle>> GetNAPagesByStatusAndSortAsync(int pageIndex, int pageSize, Status status = Status.Active, bool sortDescending = true)
+        {
+            return await _newsArticleService.GetNAPagesByStatusAndSort(pageIndex, pageSize, status, sortDescending);
+        }
+
+
 
     }
 }

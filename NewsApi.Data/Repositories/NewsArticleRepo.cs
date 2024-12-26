@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsApi.Data.Base;
+using NewsApi.Data.UnitOfWork;
 using NewsApi.Model.Enums;
 using NewsApi.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,13 +36,13 @@ namespace NewsApi.Data.Repositories
             }
             //Title contains query
             newsArticle = await _dbSet.Where(x => x.Title.Contains(name)).FirstOrDefaultAsync();
-            if ( newsArticle != null)
+            if (newsArticle != null)
             {
                 return newsArticle;
             }
             //query contains title
             return await _dbSet.Where(x => name.Contains(x.Title)).FirstOrDefaultAsync();
-                                    
+
         }
 
         public async Task<int> DeleteAsync(int id)
@@ -81,16 +83,64 @@ namespace NewsApi.Data.Repositories
         }
 
         public async Task<IEnumerable<NewsArticle>> GetNewsArticleByStatusAndSort(Status status, bool sortDescending)
-        {            
+        {
             if (sortDescending)
             {
-                return await  _dbSet.Where(na => na.Status == status).OrderByDescending(na => na.PublishedAt).ToListAsync();
+                return await _dbSet.Where(na => na.Status == status).OrderByDescending(na => na.PublishedAt).ToListAsync();
             }
             else
             {
                 return await _dbSet.Where(na => na.Status == status).OrderBy(na => na.PublishedAt).ToListAsync();
             }
-            
+
+        }
+
+
+        public async Task<IEnumerable<NewsArticle>> GetNAPagesByStatusAndSort(int pageIndex, int pageSize, Status status, bool sortDescending)
+        {
+            if (pageIndex < 1)
+            {
+                throw new ArgumentException("Invalid page index");
+            }
+
+            if (pageSize < 1 || pageSize > 1000)
+            {
+                throw new ArgumentException("Invalid page size. Size can be between 1 and 1000");
+            }
+
+            var count = await _dbSet.Where(na => na.Status == status).CountAsync();
+            var totalPages = (int)Math.Ceiling(count / (double)pageSize);
+
+            if (pageIndex > totalPages)
+            {
+                throw new ArgumentException("Invalid page index, no page with that index");
+            }
+
+            //var newsArticles = await _dbSet
+            //.Where(na => na.Status == status)
+            //.Skip((pageIndex - 1) * pageSize)
+            //.Take(pageSize)
+            //.ToListAsync();
+
+            if (sortDescending)
+            {
+               return await _dbSet
+                    .Where(na => na.Status == status)
+                    .OrderByDescending(na => na.PublishedAt)
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+               
+            }
+            else
+            {
+                return await _dbSet
+                    .Where(na => na.Status == status)
+                    .OrderBy(na => na.PublishedAt)
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();               
+            }
         }
 
         //public async Task<NewsArticle> GetByIdAsync(int id)

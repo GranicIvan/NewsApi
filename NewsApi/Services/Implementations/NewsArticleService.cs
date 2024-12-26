@@ -4,6 +4,7 @@ using NewsApi.Data.UnitOfWork;
 using NewsApi.Model.DTO;
 using NewsApi.Model.Enums;
 using NewsApi.Model.Models;
+using System.Numerics;
 
 namespace NewsApi.Services.Implementations
 {
@@ -134,5 +135,12 @@ namespace NewsApi.Services.Implementations
         {
             return _unitOfWork.NewsArticleRepository.GetNewsArticleByStatusAndSort(status, sortDescending);
         }
+
+        public Task<IEnumerable<NewsArticle>> GetNAPagesByStatusAndSort(int pageIndex, int pageSize, Status status, bool sortDescending)
+        {
+            return _unitOfWork.NewsArticleRepository.GetNAPagesByStatusAndSort(pageIndex, pageSize, status, sortDescending);
+        }
+
+       
     }
 }

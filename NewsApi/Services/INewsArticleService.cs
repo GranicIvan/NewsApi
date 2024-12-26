@@ -31,5 +31,8 @@ namespace NewsApi.Services
         Task<IEnumerable<NewsArticle>> GetNewsArticleSortByDate();
 
         Task<IEnumerable<NewsArticle>> GetNewsArticleByStatusAndSort(Status status, bool sortDescending);
+
+        Task<IEnumerable<NewsArticle>> GetNAPagesByStatusAndSort(int pageIndex, int pageSize, Status status, bool sortDescending);
+        
     }
 }
