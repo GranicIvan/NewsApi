@@ -33,7 +33,7 @@ namespace NewsApi.Services.Implementations
 
                 newsArticle.Category = null; // Ensure the Category object is not tracked
 
-                if(newsArticle.CategoryId == -1)
+                if (newsArticle.CategoryId == -1)
                 {
                     newsArticle.CategoryId = null;
                 }
@@ -46,7 +46,7 @@ namespace NewsApi.Services.Implementations
                 await _unitOfWork.NewsArticleRepository.AddAsync(newsArticle);
                 await _unitOfWork.SaveAsync();
 
-            }            
+            }
             catch (Exception ex)
             {
                 _logger.Error(ex, "An error occurred while adding NewsArticle.");
@@ -64,9 +64,10 @@ namespace NewsApi.Services.Implementations
             return _mapper.Map<IEnumerable<NewsArticleDTO>>(news);
         }
 
-        public Task<NewsArticle> GetNewsArticleById(int id)
+        public async Task<NewsArticleDTO> GetNewsArticleById(int id)
         {
-            return _unitOfWork.NewsArticleRepository.GetByIdAsync(id);
+            return _mapper.Map<NewsArticleDTO>( await _unitOfWork.NewsArticleRepository.GetByIdAsync(id));
+            
         }
 
         public Task<NewsArticle> GetNewsArticleByName(string name)
@@ -136,11 +137,11 @@ namespace NewsApi.Services.Implementations
             return _unitOfWork.NewsArticleRepository.GetNewsArticleByStatusAndSort(status, sortDescending);
         }
 
-        public Task<IEnumerable<NewsArticle>> GetNAPagesByStatusAndSort(int pageIndex, int pageSize, Status status, bool sortDescending)
+        public async Task<IEnumerable<NewsArticleDTO>> GetNAPagesByStatusAndSort(int pageIndex, int pageSize, Status status, bool sortDescending)
         {
-            return _unitOfWork.NewsArticleRepository.GetNAPagesByStatusAndSort(pageIndex, pageSize, status, sortDescending);
+            return _mapper.Map<IEnumerable<NewsArticleDTO>>(await _unitOfWork.NewsArticleRepository.GetNAPagesByStatusAndSort(pageIndex, pageSize, status, sortDescending));
         }
 
-       
+        
     }
 }

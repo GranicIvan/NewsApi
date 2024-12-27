@@ -24,5 +24,6 @@ namespace NewsApi.Model.DTO
         public CategoryDTO? Category { get; set; }
         public int? CategoryId { get; set; }
         public string? ImageUrl { get; set; }
+        public string? Image { get; set; } 
     }
 }

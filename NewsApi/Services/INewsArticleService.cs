@@ -8,7 +8,7 @@ namespace NewsApi.Services
     {
         Task<IEnumerable<NewsArticleDTO>> GetAllNewsArticlesAsync();
 
-        Task<NewsArticle> GetNewsArticleById(int id);
+        Task<NewsArticleDTO> GetNewsArticleById(int id);
 
         Task<NewsArticleDTO?> AddAsync(NewsArticleDTO newsArticle);        
 
@@ -32,7 +32,8 @@ namespace NewsApi.Services
 
         Task<IEnumerable<NewsArticle>> GetNewsArticleByStatusAndSort(Status status, bool sortDescending);
 
-        Task<IEnumerable<NewsArticle>> GetNAPagesByStatusAndSort(int pageIndex, int pageSize, Status status, bool sortDescending);
+        Task<IEnumerable<NewsArticleDTO>> GetNAPagesByStatusAndSort(int pageIndex, int pageSize, Status status, bool sortDescending);
         
+
     }
 }

@@ -37,7 +37,7 @@ namespace NewsApi.Controllers
         }
 
         [HttpGet("GetNewsArticleById")]
-        public async Task<NewsArticle> GetNewsArticleByIdAsync(int id)
+        public async Task<NewsArticleDTO> GetNewsArticleByIdAsync(int id)
         {
            
             return await _newsArticleService.GetNewsArticleById(id);
@@ -103,7 +103,7 @@ namespace NewsApi.Controllers
         }
 
         [HttpGet("GetNAPagesByStatusAndSort")]
-        public async Task<IEnumerable<NewsArticle>> GetNAPagesByStatusAndSortAsync(int pageIndex, int pageSize, Status status = Status.Active, bool sortDescending = true)
+        public async Task<IEnumerable<NewsArticleDTO>> GetNAPagesByStatusAndSortAsync(int pageIndex, int pageSize, Status status = Status.Active, bool sortDescending = true)
         {
             return await _newsArticleService.GetNAPagesByStatusAndSort(pageIndex, pageSize, status, sortDescending);
         }

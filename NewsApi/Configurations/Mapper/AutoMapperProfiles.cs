@@ -1,11 +1,22 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Routing;
+using NewsApi.Helpers;
 using NewsApi.Model.DTO;
 using NewsApi.Model.Models;
+using NewsApi.Services;
 
 namespace NewsApi.Configurations.Mapper
 {
     public class AutoMapperProfiles : Profile
     {
+
+        private readonly INewsArticleService _newsArticleService;
+
+        public AutoMapperProfiles(INewsArticleService newsArticleService)
+        {
+            _newsArticleService = newsArticleService;
+        }
+
         public AutoMapperProfiles()
         {
             CreateMap<Category, CategoryDTO>();
@@ -41,10 +52,18 @@ namespace NewsApi.Configurations.Mapper
                 }
                 return tags;
             }
-            ) );
+            ) ).ForMember(dest => dest.Image, m => m.MapFrom((src, des) =>
+            {   
+                if(string.IsNullOrWhiteSpace(src?.ImageUrl))
+                {
+                    return string.Empty;
+                }
+
+                return ImageConversionHelper.ConvertImageToBase64(src.ImageUrl);
+            }
+            ));
             CreateMap<NewsArticleDTO, NewsArticle>();
-            //CreateMap<NewsArticleDTO, NewsArticle>(string name); // Ovde da navedes da li id ili ceo objekatda bude null od povezanih
- 
+           
         }
 
 
